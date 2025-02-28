@@ -1,0 +1,23 @@
+repos:
+  - repo: local
+    hooks:
+      - id: mvn-spotless
+        name: Maven Spotless
+        entry: mvn spotless:apply
+        language: system
+        pass_filenames: false
+      - id: mvn-checkstyle
+        name: Maven Checkstyle
+        entry: mvn checkstyle:check
+        language: system
+        pass_filenames: false
+      - id: mvn-spotbugs
+        name: Maven SpotBugs
+        entry: mvn spotbugs:check
+        language: system
+        pass_filenames: false
+      - id: mvn-pmd
+        name: Maven PMD
+        entry: mvn pmd:check
+        language: system
+        pass_filenames: false
