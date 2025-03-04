@@ -39,19 +39,19 @@ public enum AnnexDOptionType {
 
   private final String name;
   private final String displayName;
-  private final int value;
+  private final int id;
 
   /**
    * Constructor for AnnexDOptionType enum.
    *
    * @param name The original camelCase name of the option type.
    * @param displayName The human-readable name of the Annex D option type.
-   * @param value The integer value associated with the option type.
+   * @param id The integer value associated with the option type.
    */
-  AnnexDOptionType(String name, String displayName, int value) {
+  AnnexDOptionType(String name, String displayName, int id) {
     this.name = name;
     this.displayName = displayName;
-    this.value = value;
+    this.id = id;
   }
 
   /**
@@ -77,22 +77,17 @@ public enum AnnexDOptionType {
    *
    * @return The integer value.
    */
-  public int getValue() {
-    return value;
+  public int getId() {
+    return id;
   }
 
-  /**
-   * Converts a camelCase name to the corresponding AnnexDOptionType enum value.
-   *
-   * @param name The camelCase name to convert (case-sensitive).
-   * @return The matching AnnexDOptionType, or null if no match is found.
-   */
-  public static AnnexDOptionType fromName(String name) {
-    if (name == null) {
+  public static AnnexDOptionType fromId(final Integer id) {
+    if (id == null) {
       return null;
     }
+
     for (AnnexDOptionType type : values()) {
-      if (type.name.equals(name)) {
+      if (type.id == id) {
         return type;
       }
     }
