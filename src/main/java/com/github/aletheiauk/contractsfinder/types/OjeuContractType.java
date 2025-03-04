@@ -9,12 +9,12 @@ public enum OjeuContractType {
 
   private final String name;
   private final String displayName;
-  private final int value;
+  private final int id;
 
-  OjeuContractType(String name, String displayName, int value) {
+  OjeuContractType(String name, String displayName, int id) {
     this.name = name;
     this.displayName = displayName;
-    this.value = value;
+    this.id = id;
   }
 
   public String getName() {
@@ -25,8 +25,8 @@ public enum OjeuContractType {
     return displayName;
   }
 
-  public int getValue() {
-    return value;
+  public int getId() {
+    return id;
   }
 
   public static OjeuContractType fromName(String name) {
@@ -35,6 +35,18 @@ public enum OjeuContractType {
     }
     for (OjeuContractType type : values()) {
       if (type.name.equals(name)) {
+        return type;
+      }
+    }
+    return null;
+  }
+
+  public static OjeuContractType fromId(Integer id) {
+    if (id == null) {
+      return null;
+    }
+    for (OjeuContractType type : values()) {
+      if (type.id == id) {
         return type;
       }
     }
