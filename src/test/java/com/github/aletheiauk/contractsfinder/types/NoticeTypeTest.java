@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 class NoticeTypeTest {
 
   @Test
-  public void testById() {
-    assertEquals(NoticeType.CONTRACT, NoticeType.byId(1));
-    assertEquals(NoticeType.PIPELINE, NoticeType.byId(2));
-    assertEquals(NoticeType.PRE_PROCUREMENT, NoticeType.byId(4));
+  public void testFromId() {
+    assertEquals(NoticeType.CONTRACT, NoticeType.fromId(1));
+    assertEquals(NoticeType.PIPELINE, NoticeType.fromId(2));
+    assertEquals(NoticeType.PRE_PROCUREMENT, NoticeType.fromId(4));
   }
 
   @Test
-  public void byIdThrowsExceptionOnInvalidValue() {
-    assertThrows(RuntimeException.class, () -> NoticeType.byId(0));
+  public void fromIdThrowsExceptionOnInvalidValue() {
+    assertThrows(RuntimeException.class, () -> NoticeType.fromId(0));
   }
 }
