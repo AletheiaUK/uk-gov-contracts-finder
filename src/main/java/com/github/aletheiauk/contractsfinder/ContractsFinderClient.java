@@ -3,8 +3,10 @@ package com.github.aletheiauk.contractsfinder;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.github.aletheiauk.contractsfinder.api.ContractsFinderService;
+import com.github.aletheiauk.contractsfinder.api.responses.ContractListResponse;
 import com.github.aletheiauk.contractsfinder.api.responses.CountriesResponse;
 import com.github.aletheiauk.contractsfinder.api.responses.RegionsResponse;
+import com.github.aletheiauk.contractsfinder.types.Contract;
 import com.github.aletheiauk.contractsfinder.types.Country;
 import com.github.aletheiauk.contractsfinder.types.Region;
 import java.util.List;
@@ -71,7 +73,7 @@ public class ContractsFinderClient {
     final Call<RegionsResponse> getRegionsCall = contractsFinderService.getRegions();
 
     getRegionsCall.enqueue(
-        new Callback<RegionsResponse>() {
+        new Callback<>() {
           @Override
           public void onResponse(Call<RegionsResponse> call, Response<RegionsResponse> response) {
             if (response.isSuccessful() && response.body() != null) {
@@ -84,6 +86,62 @@ public class ContractsFinderClient {
 
           @Override
           public void onFailure(Call<RegionsResponse> call, Throwable throwable) {
+            future.completeExceptionally(throwable);
+          }
+        });
+
+    return future;
+  }
+
+  public CompletableFuture<List<Contract>> contractsFromToday() {
+    final CompletableFuture<List<Contract>> future = new CompletableFuture<>();
+    final Call<ContractListResponse> getContractsCall =
+        contractsFinderService.getContractsForToday();
+
+    getContractsCall.enqueue(
+        new Callback<>() {
+
+          @Override
+          public void onResponse(
+              Call<ContractListResponse> call, Response<ContractListResponse> response) {
+            if (response.isSuccessful() && response.body() != null) {
+              future.complete(response.body().contracts());
+            } else {
+              future.completeExceptionally(
+                  new RuntimeException("API call failed with code: " + response.code()));
+            }
+          }
+
+          @Override
+          public void onFailure(Call<ContractListResponse> call, Throwable throwable) {
+            future.completeExceptionally(throwable);
+          }
+        });
+
+    return future;
+  }
+
+  public CompletableFuture<List<Contract>> contractsFromDay(int year, int month, int day) {
+    final CompletableFuture<List<Contract>> future = new CompletableFuture<>();
+    final Call<ContractListResponse> getContractsCall =
+        contractsFinderService.getContractsByDay(year, month, day);
+
+    getContractsCall.enqueue(
+        new Callback<>() {
+
+          @Override
+          public void onResponse(
+              Call<ContractListResponse> call, Response<ContractListResponse> response) {
+            if (response.isSuccessful() && response.body() != null) {
+              future.complete(response.body().contracts());
+            } else {
+              future.completeExceptionally(
+                  new RuntimeException("API call failed with code: " + response.code()));
+            }
+          }
+
+          @Override
+          public void onFailure(Call<ContractListResponse> call, Throwable throwable) {
             future.completeExceptionally(throwable);
           }
         });
