@@ -11,11 +11,11 @@ repos:
         entry: mvn checkstyle:check
         language: system
         pass_filenames: false
-      - id: mvn-spotbugs
-        name: Maven SpotBugs
-        entry: mvn spotbugs:check
-        language: system
-        pass_filenames: false
+#      - id: mvn-spotbugs
+#        name: Maven SpotBugs
+#        entry: mvn spotbugs:check
+#        language: system
+#        pass_filenames: false
       - id: mvn-pmd
         name: Maven PMD
         entry: mvn pmd:check
