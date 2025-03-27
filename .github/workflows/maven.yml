@@ -67,11 +67,18 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Set up NodeJS for semantic-release
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: 'yarn'
+
+      - name: Install semantic-release
+        run: |
+          yarn install
+
       - name: Perform Semantic Release
-        uses: codfish/semantic-release-action@v3
-        id: semantic
+        run: |
+          npx semantic-release --dry-run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          additional-packages: |
-            [ '@semantic-release/git', 'conventional-changelog-conventionalcommits@7', '@terrestris/maven-semantic-release']
