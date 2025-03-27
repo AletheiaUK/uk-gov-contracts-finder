@@ -68,7 +68,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          additional-packages:
-            - '@semantic-release/git'
-            - 'conventional-changelog-conventionalcommits@7'
-            - '@terrestris/maven-semantic-release'
+          additional-packages: |
+            [ '@semantic-release/git', 'conventional-changelog-conventionalcommits@7', '@terrestris/maven-semantic-release']
